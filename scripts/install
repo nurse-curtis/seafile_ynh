@@ -93,8 +93,8 @@ chmod +x $final_path/seafile-server-$seafile_version/setup-seafile-mysql.sh
 # expect_scripts/install.exp "$final_path/seafile-server-$seafile_version" "$server_name" "$domain" "$seafile_data" "$fileserver_port" "$db_pwd"
 
 # Update seafile config
-ynh_replace_string http:// https:// $final_path/conf/ccnet.conf
-ynh_replace_string :8000 $path_url $final_path/conf/ccnet.conf
+# ynh_replace_string http:// https:// $final_path/conf/ccnet.conf
+# ynh_replace_string :8000 $path_url $final_path/conf/ccnet.conf
 # echo 'FILE_SERVER_ROOT = "https://'$domain'/seafhttp"' | tee -a $final_path/conf/seahub_settings.py
 # echo 'SITE_ROOT = "'$path_url2'"' | tee -a $final_path/conf/seahub_settings.py
 # echo 'SERVE_STATIC = False' | tee -a $final_path/conf/seahub_settings.py
@@ -114,10 +114,10 @@ ynh_replace_string :8000 $path_url $final_path/conf/ccnet.conf
 # echo 'SERVER_EMAIL = "seafile@'$domain'"' | tee -a $final_path/conf/seahub_settings.py
 
 # LDAP configuration
-echo '[LDAP]' | tee -a $final_path/conf/ccnet.conf
-echo 'HOST = ldap://localhost:389' | tee -a $final_path/conf/ccnet.conf
-echo 'BASE = ou=users,dc=yunohost,dc=org' | tee -a $final_path/conf/ccnet.conf
-echo 'LOGIN_ATTR = mail' | tee -a $final_path/conf/ccnet.conf
+# echo '[LDAP]' | tee -a $final_path/conf/ccnet.conf
+# echo 'HOST = ldap://localhost:389' | tee -a $final_path/conf/ccnet.conf
+# echo 'BASE = ou=users,dc=yunohost,dc=org' | tee -a $final_path/conf/ccnet.conf
+# echo 'LOGIN_ATTR = mail' | tee -a $final_path/conf/ccnet.conf
 
 # Enable manually wiki
 # echo 'ENABLE_WIKI = True' | tee -a $final_path/conf/seahub_settings.py
