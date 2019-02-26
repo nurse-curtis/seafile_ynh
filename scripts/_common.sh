@@ -58,7 +58,7 @@ install_source() {
 }
 
 install_dependance() {
-	ynh_install_app_dependencies python3.5 python3-pip python3-setuptools python3-simplejson python3-imaging python3-mysqldb python3-flup expect python3-requests python3-dev \
+	ynh_install_app_dependencies python3.5 python3-pip python3-setuptools python3-simplejson python-imaging python3-mysqldb python-flup expect python3-requests python3-dev \
         libjpeg62-turbo-dev zlib1g-dev # For building pillow
 	# Upgrade setuptools for jessie because the new moviepy package is not compatible with setuptools 5.x
 	[ "$(lsb_release --codename --short)" = "jessie" ] && pip3 install --upgrade setuptools
