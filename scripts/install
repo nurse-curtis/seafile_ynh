@@ -89,7 +89,7 @@ ynh_system_user_create $seafile_user $final_path
 
 # Run install script
 # chmod +x expect_scripts/install.exp
-chmod +x $final_path/seafile-server-$seafile_version/setup-seafile-mysql.sh
+# chmod +x $final_path/seafile-server-$seafile_version/setup-seafile-mysql.sh
 # expect_scripts/install.exp "$final_path/seafile-server-$seafile_version" "$server_name" "$domain" "$seafile_data" "$fileserver_port" "$db_pwd"
 
 # Update seafile config
@@ -123,14 +123,14 @@ chmod +x $final_path/seafile-server-$seafile_version/setup-seafile-mysql.sh
 # echo 'ENABLE_WIKI = True' | tee -a $final_path/conf/seahub_settings.py
 
 # Fix local warning
-ynh_replace_string en_US.UTF-8 ${LANG:-'en_US.UTF-8'} $final_path/seafile-server-$seafile_version/seahub.sh
+# ynh_replace_string en_US.UTF-8 ${LANG:-'en_US.UTF-8'} $final_path/seafile-server-$seafile_version/seahub.sh
 
 # Update gunicorn config
-sed --in-place -r "s@bind = \"0\.0\.0\.0:[[:digit:]]+\"@bind = \"0.0.0.0:$seahub_port\"@g" $final_path/conf/gunicorn.conf
+# sed --in-place -r "s@bind = \"0\.0\.0\.0:[[:digit:]]+\"@bind = \"0.0.0.0:$seahub_port\"@g" $final_path/conf/gunicorn.conf
 
 # Add webdav
 cp ../conf/seafdav.conf $final_path/conf/seafdav.conf
-ynh_replace_string WEBDAV_PORT $webdav_port $final_path/conf/seafdav.conf
+# ynh_replace_string WEBDAV_PORT $webdav_port $final_path/conf/seafdav.conf
 
 # Add Seafile Server to startup
 cp ../conf/seafile-server /etc/init.d
@@ -186,12 +186,12 @@ ln -s $final_path/logs /var/log/seafile
 yunohost service add seafile-server
 
 # Restart seafile
-su - $seafile_user -s /bin/bash -c "$final_path/seafile-server-latest/seahub.sh stop"
-systemctl stop seafile-server.service
-sleep 2
+# su - $seafile_user -s /bin/bash -c "$final_path/seafile-server-latest/seahub.sh stop"
+# systemctl stop seafile-server.service
+# sleep 2
 
 # We kill all process lunched by the script
-pkill -f seafile-controller || true
-pkill -f seaf-server || true
+# pkill -f seafile-controller || true
+# pkill -f seaf-server || true
 
 system_reload seafile-server start
