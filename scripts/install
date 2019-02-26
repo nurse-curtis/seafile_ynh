@@ -95,23 +95,23 @@ chmod +x $final_path/seafile-server-$seafile_version/setup-seafile-mysql.sh
 # Update seafile config
 ynh_replace_string http:// https:// $final_path/conf/ccnet.conf
 ynh_replace_string :8000 $path_url $final_path/conf/ccnet.conf
-echo 'FILE_SERVER_ROOT = "https://'$domain'/seafhttp"' | tee -a $final_path/conf/seahub_settings.py
-echo 'SITE_ROOT = "'$path_url2'"' | tee -a $final_path/conf/seahub_settings.py
-echo 'SERVE_STATIC = False' | tee -a $final_path/conf/seahub_settings.py
-echo 'MEDIA_URL = "'$path_url2'media/"' | tee -a $final_path/conf/seahub_settings.py
-echo 'COMPRESS_URL = MEDIA_URL' | tee -a $final_path/conf/seahub_settings.py
-echo "STATIC_URL = MEDIA_URL + 'assets/'" | tee -a $final_path/conf/seahub_settings.py
-echo "LOGIN_URL = '"$path_url2"accounts/login/'" | tee -a $final_path/conf/seahub_settings.py
-echo "ALLOWED_HOSTS = ['"$domain"']" | tee -a $final_path/conf/seahub_settings.py
+# echo 'FILE_SERVER_ROOT = "https://'$domain'/seafhttp"' | tee -a $final_path/conf/seahub_settings.py
+# echo 'SITE_ROOT = "'$path_url2'"' | tee -a $final_path/conf/seahub_settings.py
+# echo 'SERVE_STATIC = False' | tee -a $final_path/conf/seahub_settings.py
+# echo 'MEDIA_URL = "'$path_url2'media/"' | tee -a $final_path/conf/seahub_settings.py
+# echo 'COMPRESS_URL = MEDIA_URL' | tee -a $final_path/conf/seahub_settings.py
+# echo "STATIC_URL = MEDIA_URL + 'assets/'" | tee -a $final_path/conf/seahub_settings.py
+# echo "LOGIN_URL = '"$path_url2"accounts/login/'" | tee -a $final_path/conf/seahub_settings.py
+# echo "ALLOWED_HOSTS = ['"$domain"']" | tee -a $final_path/conf/seahub_settings.py
 
 # Email configuration
-echo 'EMAIL_USE_TLS = False' | tee -a $final_path/conf/seahub_settings.py
-echo 'EMAIL_HOST = "localhost"' | tee -a $final_path/conf/seahub_settings.py
-echo 'EMAIL_HOST_USER = "seafile@'$domain'"' | tee -a $final_path/conf/seahub_settings.py
-echo 'EMAIL_HOST_PASSWORD = ""' | tee -a $final_path/conf/seahub_settings.py
-echo 'EMAIL_PORT = "25"' | tee -a $final_path/conf/seahub_settings.py
-echo 'DEFAULT_FROM_EMAIL = "seafile@'$domain'"' | tee -a $final_path/conf/seahub_settings.py
-echo 'SERVER_EMAIL = "seafile@'$domain'"' | tee -a $final_path/conf/seahub_settings.py
+# echo 'EMAIL_USE_TLS = False' | tee -a $final_path/conf/seahub_settings.py
+# echo 'EMAIL_HOST = "localhost"' | tee -a $final_path/conf/seahub_settings.py
+# echo 'EMAIL_HOST_USER = "seafile@'$domain'"' | tee -a $final_path/conf/seahub_settings.py
+# echo 'EMAIL_HOST_PASSWORD = ""' | tee -a $final_path/conf/seahub_settings.py
+# echo 'EMAIL_PORT = "25"' | tee -a $final_path/conf/seahub_settings.py
+# echo 'DEFAULT_FROM_EMAIL = "seafile@'$domain'"' | tee -a $final_path/conf/seahub_settings.py
+# echo 'SERVER_EMAIL = "seafile@'$domain'"' | tee -a $final_path/conf/seahub_settings.py
 
 # LDAP configuration
 echo '[LDAP]' | tee -a $final_path/conf/ccnet.conf
@@ -120,7 +120,7 @@ echo 'BASE = ou=users,dc=yunohost,dc=org' | tee -a $final_path/conf/ccnet.conf
 echo 'LOGIN_ATTR = mail' | tee -a $final_path/conf/ccnet.conf
 
 # Enable manually wiki
-echo 'ENABLE_WIKI = True' | tee -a $final_path/conf/seahub_settings.py
+# echo 'ENABLE_WIKI = True' | tee -a $final_path/conf/seahub_settings.py
 
 # Fix local warning
 ynh_replace_string en_US.UTF-8 ${LANG:-'en_US.UTF-8'} $final_path/seafile-server-$seafile_version/seahub.sh
@@ -134,9 +134,9 @@ ynh_replace_string WEBDAV_PORT $webdav_port $final_path/conf/seafdav.conf
 
 # Add Seafile Server to startup
 cp ../conf/seafile-server /etc/init.d
-ynh_replace_string SEAHUB_PORT $seahub_port /etc/init.d/seafile-server
-ynh_replace_string SEAFILE_DIR $final_path /etc/init.d/seafile-server
-ynh_replace_string SEAFILE_USER $seafile_user /etc/init.d/seafile-server
+# ynh_replace_string SEAHUB_PORT $seahub_port /etc/init.d/seafile-server
+# ynh_replace_string SEAFILE_DIR $final_path /etc/init.d/seafile-server
+# ynh_replace_string SEAFILE_USER $seafile_user /etc/init.d/seafile-server
 chmod +x /etc/init.d/seafile-server
 systemctl daemon-reload
 update-rc.d seafile-server defaults
@@ -145,19 +145,19 @@ update-rc.d seafile-server defaults
 config_nginx
 
 # Copy first launch script
-cp expect_scripts/first_launch.exp $final_path
-chmod +x $final_path/first_launch.exp
+# cp expect_scripts/first_launch.exp $final_path
+# chmod +x $final_path/first_launch.exp
 
 # Set permissions to seafile directory
 chown -R $seafile_user:$seafile_user $final_path
 chown -R $seafile_user:$seafile_user $seafile_data
 
 # Start seafile, seahub and populate admin account
-su - $seafile_user -s /bin/bash -c "$final_path/seafile-server-$seafile_version/seafile.sh start"
+# su - $seafile_user -s /bin/bash -c "$final_path/seafile-server-$seafile_version/seafile.sh start"
 # We escape all char witch needed.
-ynh_replace_special_string "__ADMIN_PASSWORD__" $admin_password "$final_path/first_launch.exp"
-su - $seafile_user -s /bin/bash -c "$final_path/first_launch.exp $final_path/seafile-server-$seafile_version $admin_email"
-ynh_secure_remove "$final_path/first_launch.exp"
+# ynh_replace_special_string "__ADMIN_PASSWORD__" $admin_password "$final_path/first_launch.exp"
+# su - $seafile_user -s /bin/bash -c "$final_path/first_launch.exp $final_path/seafile-server-$seafile_version $admin_email"
+# ynh_secure_remove "$final_path/first_launch.exp"
 
 #=================================================
 # GENERIC FINALIZATION
