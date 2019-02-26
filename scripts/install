@@ -8,7 +8,7 @@
 source /usr/share/yunohost/helpers
 
 # Stop script if errors
-ynh_abort_if_errors
+# ynh_abort_if_errors
 
 # Import common cmd
 source ./experimental_helper.sh
